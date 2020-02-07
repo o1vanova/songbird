@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "allowUnreachableCode": true,
+    "allowSyntheticDefaultImports": true,
+    "module": "commonjs",
+    "jsx": "react",
+
+    "lib": ["dom", "es2015"],
+
+    "target": "es5",
+
+    "baseUrl": ".",
+
+    "paths": {
+      "*": [
+        "*",
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}

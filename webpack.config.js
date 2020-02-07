@@ -1,9 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const config = {
-  entry: './src/main.jsx',
+  entry: './src/main.tsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js'
@@ -11,16 +12,22 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        use: 'babel-loader',
-        exclude: /node_modules/
+        'test': /\.(ts|tsx)?$/,
+        'loaders': ['babel-loader', 'ts-loader'],
+        'exclude': [/node_modules/, nodeModulesPath]
+      },
+      {
+        'test': /\.(jsx?)$/,
+        'loaders': ['babel-loader'],
+        'exclude': [/node_modules/, nodeModulesPath]
       }
     ]
   },
   resolve: {
-    extensions: [
-      '.js',
-      '.jsx'
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    modules: [
+      path.resolve(__dirname, 'src'),
+      'node_modules',
     ]
   },
   plugins: [
