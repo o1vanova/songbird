@@ -13,8 +13,6 @@
   "author": "Olga Ivanova",
   "license": "ISC",
   "dependencies": {
-    "mobx": "^5.15.4",
-    "mobx-react": "^6.1.7",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-hot-loader": "^4.12.19"
