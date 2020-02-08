@@ -2,11 +2,16 @@ import { computed, observable } from 'mobx';
 
 class AppStore {
   @observable
-  public loaded: boolean;
+  private loaded: boolean;
 
   @computed
   public get initialized() {
     return this.loaded;
+  }
+
+  @computed
+  public get total() {
+    return 0;
   }
 
   constructor() {

@@ -1,13 +1,20 @@
 import { observer } from 'mobx-react';
-import * as React from 'react';
+import React, { Fragment } from 'react';
 import useStore from 'app/hooks';
+import Header from 'components/header/Header';
+
+import './App.scss';
 
 const App = observer(() => {
   const store = useStore();
 
   if (store.initialized) {
     return (
-      <div>Test</div>
+      <Fragment>
+        <Header />
+        <main className="main">
+        </main>
+      </Fragment>
     );
   } else {
     return (

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const config = {
@@ -20,7 +21,26 @@ const config = {
         'test': /\.(jsx?)$/,
         'loaders': ['babel-loader'],
         'exclude': [/node_modules/, nodeModulesPath]
-      }
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          'css-loader',
+          'sass-loader',
+          {
+            loader: 'sass-resources-loader',
+            options: {
+              resources: [
+                './src/assets/styles/common.scss',
+                './src/assets/styles/flex.scss',
+              ]
+            },
+          }
+        ]
+      },
     ]
   },
   resolve: {
@@ -33,6 +53,9 @@ const config = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './src/index.html'
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].css'
     }),
     new CopyWebpackPlugin([
     {

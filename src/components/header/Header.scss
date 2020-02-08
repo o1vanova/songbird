@@ -1,0 +1,19 @@
+.header {
+  $height: 50px;
+
+  height: $height;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  background-color: #073642;
+
+  &__logo {
+    background-image: url('/images/logo.png');
+    flex: auto;
+    background-size: contain;
+    background-repeat: no-repeat;
+    height: $height;
+  }
+}
