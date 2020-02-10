@@ -1,0 +1,17 @@
+.button {
+    display: block;
+    width: 100%;
+    background: $gold -webkit-gradient(linear, left top, left bottom, from($gold-light), to($gold)) repeat-x;
+    color: $grey;
+    border-radius: 5px;
+    border: 1px solid $gold;
+    font-size: 1rem;
+    padding: 10px;
+    cursor: pointer;
+
+    &__disabled
+    {
+      opacity: 0.2;
+      cursor: default;
+    }
+}

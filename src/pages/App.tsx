@@ -1,35 +1,25 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
 import Header from 'components/header/Header';
+import Button from 'components/button/Button';
+import Result from 'components/screen/Result';
 import data from 'constants/mock';
+import Bird from 'data/Bird';
 
 import './App.scss';
-
-interface Bird  {
-  id: number,
-  name: string,
-  species: string,
-  description: string,
-  image: string,
-  audio: string
-}
 
 const getRandomIndex = (len) => Math.floor(Math.random() * len);
 
 const App = () => {
 
-  let [score, setScore] = useState(0);
-  let [showResult, setResult] = useState(false);
+  const [score, setScore] = useState(0);
+  const [showResult, setResult] = useState(false);
   let [category, setCategory] = useState(0);
-  let [questions, setGroup] = useState(data.birdsData[category]);
-  let [question, setQuestion] = useState<Bird>(questions[getRandomIndex(questions.length)]);
-  let [answer, setAnswer] = useState<Bird | null>(null);
-  let [answers, setAnswers] = useState<number[]>([]);
+  const [questions, setGroup] = useState(data.birdsData[category]);
+  const [question, setQuestion] = useState<Bird>(questions[getRandomIndex(questions.length)]);
+  const [answer, setAnswer] = useState<Bird | null>(null);
+  const [answers, setAnswers] = useState<number[]>([]);
 
   const nextLevel = () => {
-    if (!answers.includes(question.id)) {
-      return;
-    }
-
     if (data.birdsData.length > category + 1) {
       setCategory(++category);
       const items = data.birdsData[category].sort(() => Math.random() - 0.5);
@@ -46,8 +36,9 @@ const App = () => {
     const item = questions.find((q) => q.id === id) ?? null;
     setAnswer(item);
 
-    if (!clicked(id) && !answers.includes(question.id)) {
-      if(question.id === id) {
+    if (!clicked(id) && !clicked(question.id)) {
+      const isRight = question.id === id;
+      if(isRight) {
         setScore(score + 5 - answers.length);
       }
       answers.push(id);
@@ -68,10 +59,6 @@ const App = () => {
     } else {
       return {backgroundColor: clickedRight(id) ? 'green' : 'red'};
     }
-  }
-
-  const btnStyle = () => {
-    return answers.includes(question.id) ? {opacity: '1'} : {opacity: '0.2', pointer: 'default'};
   }
 
   const answerCard = () => {
@@ -100,54 +87,48 @@ const App = () => {
     setResult(false);
   }
 
-  const resultBlock = () => {
-    return 5 * questions.length === score ?
-      (
-        <div>
-          набрано максимально возможное количество баллов,
-          выводится поздравление и уведомление об окончании игры
-          <hr/>
-          <button onClick={clear}>пройти викторину ещё раз</button>
-        </div>
-      ) :
-      (
-        <div>
-          максимально возможное количество баллов не набрано
-          <hr/>
-          <button onClick={clear}>пройти викторину ещё раз</button>
-        </div>
-      );
-  }
-
-  return !showResult ? (
-      <Fragment>
-        <Header total={score}/>
-        <main className="main">
-          <div>{data.categories[category]} - {category + 1}</div>
-          <hr/>
-          <div>
-            <span>{question.id} - {question.name}</span>
-          </div>
-          <hr/>
-          {questions.map((q)=> {
-            return (
-              <div key={q.id} onClick={() => clickAnswer(q.id)} style={itemStyle(q.id)}>
-                <span>{q.id} - {q.name}</span>
+  return (
+    <Fragment>
+      <Header total={score}/>
+      <main className="main">
+      {(() => {
+        if(!showResult) {
+          return (
+            <Result score={score} total={5 * questions.length} onClick={clear} />
+          );
+        } else {
+          return (
+            <Fragment>
+              <div>{data.categories[category]} - {category + 1}</div>
+              <hr/>
+              <div>
+                <span>{question.id} - {question.name}</span>
               </div>
-            );
-          })}
-          <hr/>
-          {answerCard()}
-          <hr/>
-          <button onClick={nextLevel} style={btnStyle()}>next level</button>
-        </main>
-      </Fragment>
-  ) :
-  (
-    <div>
-      <div>Вы набрали {score} баллов из {questions.length * 5} возможных</div>
-      {resultBlock()}
-    </div>
+              <section className="question section__question">
+
+              </section>
+              <hr/>
+              <section className="answer section__answer">
+                <ul className="answer__list">
+                  {questions.map((q)=> {
+                    return (
+                      <li className="answer__item" key={q.id} onClick={() => clickAnswer(q.id)} style={itemStyle(q.id)}>
+                        <span>{q.id} - {q.name}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <div className="answer__card"></div>
+              </section>
+              <hr/>
+              {answerCard()}
+              <Button onClick={nextLevel} disabled={!clicked(question.id)} title={'Next level'}/>
+            </Fragment>
+          );
+        }
+      })()}
+      </main>
+    </Fragment>
   );
 };
 

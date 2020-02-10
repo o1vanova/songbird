@@ -1,0 +1,22 @@
+.result {
+  &__container {
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+
+    &--fail {
+      background-color: $grey-dark;
+    }
+
+    &--success {
+      background-color: $blue;
+    }
+  }
+
+  b {
+    padding-right: 10px;
+    padding-left: 10px;
+    border-radius: 10px;
+    background-color: $gold-light;
+  }
+}
