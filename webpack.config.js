@@ -41,6 +41,17 @@ const config = {
           }
         ]
       },
+      {
+        test: /\.(wav|mp3)$/i,
+        exclude: path.resolve(__dirname, 'src/assets/sounds'),
+        use: [{
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'sounds/'
+          }
+        }]
+      },
     ]
   },
   resolve: {
@@ -58,10 +69,15 @@ const config = {
       filename: '[name].css'
     }),
     new CopyWebpackPlugin([
-    {
-      from: './src/assets/images/',
-      to: './images'
-    }]),
+      {
+        from: './src/assets/images/',
+        to: './images'
+      },
+      {
+        from: './src/assets/sounds/',
+        to: './sounds'
+      }
+    ]),
   ],
   devServer: {
     contentBase: './dist',
