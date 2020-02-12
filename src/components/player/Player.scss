@@ -1,9 +1,11 @@
 .rhap {
   &_container {
-    min-width: 200px;
+    min-width: 0;
     background-color: transparent;
     box-shadow: none;
     user-select: none;
+    margin: 10px 0;
+    padding: 0
   }
 
   &_additional-controls {
