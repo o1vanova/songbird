@@ -1,11 +1,17 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Header from 'components/header/Header';
+import NavHeader from 'components/nav/NavHeader';
+import Card from 'components/card/Card';
+import List from 'components/list/List';
+import ListItem from 'components/list/ListItem';
 import Button from 'components/button/Button';
 import Result from 'components/screen/Result';
 import data from 'constants/mock';
 import Bird from 'data/Bird';
 
 import './App.scss';
+import useAudio from 'data/useAudio';
+import Sounds from 'data/Sounds';
 
 const getRandomIndex = (len) => Math.floor(Math.random() * len);
 
@@ -18,6 +24,8 @@ const App = () => {
   const [question, setQuestion] = useState<Bird>(questions[getRandomIndex(questions.length)]);
   const [answer, setAnswer] = useState<Bird | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
+
+  //const [playing, toggle] = useAudio(Sounds.error);
 
   const nextLevel = () => {
     if (data.birdsData.length > category + 1) {
@@ -41,6 +49,7 @@ const App = () => {
       if(isRight) {
         setScore(score + 5 - answers.length);
       }
+      //toggle(true);
       answers.push(id);
     }
   };
@@ -49,32 +58,11 @@ const App = () => {
     return answers.includes(id);
   }
 
-  const clickedRight = (id: number) => {
-    return question.id === id;
-  }
-
-  const itemStyle = (id: number) => {
-    if (!clicked(id)) {
-      return {};
-    } else {
-      return {backgroundColor: clickedRight(id) ? 'green' : 'red'};
-    }
-  }
-
-  const answerCard = () => {
-    if (answer) {
-      return (
-        <div>
-          <div>{answer.id}</div>
-          <div>{answer.name} {answer.species}</div>
-          <div>{answer.description}</div>
-        </div>
-      );
-    }
-    return (
-      <div>послушать плеер и выбрать название птицы, чей голос прозвучал</div>
-    );
-  }
+  const answerBlock = answer ? (
+    <Card bird={answer} showName={true} showFullInfo={true} />
+  ) : (
+    <div className="card">Please, listen to the player and choose the name of the bird whose voice was sounded</div>
+  );
 
   const clear = () => {
     setCategory(0);
@@ -92,36 +80,28 @@ const App = () => {
       <Header total={score}/>
       <main className="main">
       {(() => {
-        if(!showResult) {
+        if(showResult) {
           return (
             <Result score={score} total={5 * questions.length} onClick={clear} />
           );
         } else {
           return (
             <Fragment>
-              <div>{data.categories[category]} - {category + 1}</div>
-              <hr/>
-              <div>
-                <span>{question.id} - {question.name}</span>
-              </div>
-              <section className="question section__question">
-
+              <NavHeader name={category}/>
+              <section className="section-question">
+                <Card bird={question} showName={clicked(question.id)} />
               </section>
-              <hr/>
-              <section className="answer section__answer">
-                <ul className="answer__list">
-                  {questions.map((q)=> {
+              <section className="section-answer">
+                <List>
+                  {questions.map((q) => {
                     return (
-                      <li className="answer__item" key={q.id} onClick={() => clickAnswer(q.id)} style={itemStyle(q.id)}>
-                        <span>{q.id} - {q.name}</span>
-                      </li>
+                      <ListItem clicked={clicked(q.id)} clickedRight={question.id === q.id} name={q.name} key={q.id}
+                        onClick={() => clickAnswer(q.id)}/>
                     );
                   })}
-                </ul>
-                <div className="answer__card"></div>
+                </List>
+                {answerBlock}
               </section>
-              <hr/>
-              {answerCard()}
               <Button onClick={nextLevel} disabled={!clicked(question.id)} title={'Next level'}/>
             </Fragment>
           );

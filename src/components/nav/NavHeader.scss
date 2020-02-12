@@ -1,0 +1,20 @@
+.section-nav {
+  @include flex-container-wrap();
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 10px 0;
+
+  &__item {
+    display: flex;
+    margin-left: 1px;
+    margin-top: 1px;
+    color: $grey;
+    background-color: $gold;
+    padding: 10px 20px;
+    border-radius: 5px;
+
+    &--selected {
+      background-color: $blue;
+    }
+  }
+}

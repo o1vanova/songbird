@@ -1,17 +1,17 @@
 import React, { FunctionComponent } from 'react';
 import './Header.scss';
 
-type HeaderProps = {
+interface HeaderProps {
   total: number
 }
 
-const Header: FunctionComponent<HeaderProps> = ({total}) => {
+const Header: FunctionComponent<HeaderProps> = (props: HeaderProps) => {
 
   return (
     <header className="header">
       <div className="header__logo"></div>
       <div className="header__score">
-        Score: {total}
+        Score: {props.total}
       </div>
     </header>
   );

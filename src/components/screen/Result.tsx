@@ -6,7 +6,7 @@ import Sounds from 'data/Sounds';
 
 import './Result.scss';
 
-type ResultProps = {
+interface ResultProps {
   score: number,
   total: number,
   onClick: () => void;
@@ -32,17 +32,17 @@ const Result: FunctionComponent<ResultProps> = (props: ResultProps) => {
   }
 
   const className = classNames(
-    'result__container',
-    `result__container--${isWinner ? 'success' : 'fail'}`
+    'section-result__container',
+    `section-result__container--${isWinner ? 'success' : 'fail'}`
   );
 
   return (
-    <section className="result section-result">
+    <section className="section-result">
       <div className={className}>
         Your score is <b>{props.score}</b> points out of <b>{props.total}</b> possible points.
         {resultBlock()}
       </div>
-      <div className="result__button">
+      <div className="section-result__button">
         <Button onClick={props.onClick} title={'Try again'}></Button>
       </div>
     </section>

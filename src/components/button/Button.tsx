@@ -2,7 +2,7 @@ import React, { FunctionComponent } from 'react';
 import classNames from 'classnames';
 import './Button.scss';
 
-type ButtonProps = {
+interface ButtonProps {
   disabled?: boolean,
   title: string,
   onClick: () => void;

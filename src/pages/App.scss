@@ -21,4 +21,18 @@
   }
 }
 
+.section{
+  &-question {
+    @include flex-container-vertical();
+  }
+
+  &-answer {
+    @include flex-container-horizontal();
+
+    @media (max-width: 500px) {
+      @include flex-container-vertical();
+    }
+  }
+}
+
 
