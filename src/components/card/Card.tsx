@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from 'react';
+import Player from 'components/player/Player';
 import Bird from 'data/Bird';
+
 import './Card.scss';
 
 interface CardProps {
@@ -33,7 +35,9 @@ const Card: FunctionComponent<CardProps> = (props: CardProps) => {
       <div className="card__content">
         <div className="card__name--large">{name}</div>
         {specie}
-        <div className="card__player"></div>
+        <div className="card__player">
+          <Player url={bird.audio} />
+        </div>
         {description}
       </div>
     </div>

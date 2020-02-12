@@ -1,0 +1,17 @@
+.rhap {
+  &_container {
+    min-width: 200px;
+    background-color: transparent;
+    box-shadow: none;
+    user-select: none;
+  }
+
+  &_additional-controls {
+    display: none
+  }
+
+  &_time,
+  &_button-clear {
+    color: $grey;
+  }
+}

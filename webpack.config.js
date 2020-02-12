@@ -23,7 +23,7 @@ const config = {
         'exclude': [/node_modules/, nodeModulesPath]
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|css)$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader
