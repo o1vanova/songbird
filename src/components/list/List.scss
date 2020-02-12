@@ -13,6 +13,7 @@
     padding: 10px 20px;
     border-radius: 5px;
     margin-bottom: 1px;
+    background-color: $mint-light;
     cursor: pointer;
 
     &--good {
@@ -21,6 +22,11 @@
 
     &--bad {
       background-color: $red;
+    }
+
+    &:hover {
+      filter: opacity(.7);
+      -webkit-filter: opacity(.7);
     }
   }
 }
