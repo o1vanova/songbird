@@ -9,12 +9,15 @@ interface PlayerProps {
 }
 
 const Player: FunctionComponent<PlayerProps> = (props: PlayerProps) => {
+
   return (
     <AudioPlayer
       src={props.url}
       autoPlay={false}
+      loop={false}
       showJumpControls={false}
       showLoopControl={false}
+      autoPlayAfterSrcChange={false}
     />
   );
 };
