@@ -25,7 +25,7 @@ const useAudio = (url: string, isPlay: boolean = false) => {
     };
   }, []);
 
-  return [playing, toggle];
+  return toggle;
 };
 
 export default useAudio;

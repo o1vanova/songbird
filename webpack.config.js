@@ -80,14 +80,7 @@ const config = {
         to: './sounds'
       }
     ]),
-  ],
-  devServer: {
-    contentBase: './dist',
-    historyApiFallback: true,
-    open: true,
-    hot: true,
-    port: 4848,
-  }
+  ]
 }
 
 module.exports = config;

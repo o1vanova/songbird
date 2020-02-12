@@ -6,9 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm dist/index.js",
-    "build:dev": "npx webpack -d --mode development --config webpack.config.js",
-    "build:prod": "npx webpack -p --mode production --config webpack.config.js",
-    "start": "webpack-dev-server --hot --mode development"
+    "build:dev": "npx webpack -d --mode development --config webpack.config.js --watch",
+    "build:prod": "npx webpack -p --mode production --config webpack.config.js"
   },
   "author": "Olga Ivanova",
   "license": "ISC",
@@ -37,7 +36,6 @@
     "ts-loader": "^6.2.1",
     "typescript": "^3.7.5",
     "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-cli": "^3.3.11"
   }
 }

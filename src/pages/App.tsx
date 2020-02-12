@@ -14,23 +14,27 @@ import useAudio from 'data/useAudio';
 import Sounds from 'data/Sounds';
 
 const getRandomIndex = (len) => Math.floor(Math.random() * len);
+const getSortItems = (items) => items.sort(() => Math.random() - 0.5);
+const count = 5;
 
 const App = () => {
 
   const [score, setScore] = useState(0);
   const [showResult, setResult] = useState(false);
   let [category, setCategory] = useState(0);
-  const [questions, setGroup] = useState(data.birdsData[category]);
-  const [question, setQuestion] = useState<Bird>(questions[getRandomIndex(questions.length)]);
+  const defaultQuestions = data.birdsData[0];
+  const [questions, setGroup] = useState(defaultQuestions);
+  const [question, setQuestion] = useState<Bird>(defaultQuestions[getRandomIndex(defaultQuestions.length)]);
   const [answer, setAnswer] = useState<Bird | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
 
-  //const [playing, toggle] = useAudio(Sounds.error);
+  const soundError = useAudio(Sounds.error);
+  const soundOk = useAudio(Sounds.ok);
 
   const nextLevel = () => {
     if (data.birdsData.length > category + 1) {
       setCategory(++category);
-      const items = data.birdsData[category].sort(() => Math.random() - 0.5);
+      const items = getSortItems(data.birdsData[category]);
       setGroup(items);
       setQuestion(items[getRandomIndex(items.length)]);
       setAnswer(null);
@@ -47,9 +51,11 @@ const App = () => {
     if (!clicked(id) && !clicked(question.id)) {
       const isRight = question.id === id;
       if(isRight) {
-        setScore(score + 5 - answers.length);
+        setScore(score + count - answers.length);
+        soundOk();
+      } else {
+        soundError();
       }
-      //toggle(true);
       answers.push(id);
     }
   };
@@ -66,7 +72,7 @@ const App = () => {
 
   const clear = () => {
     setCategory(0);
-    const items = data.birdsData[0].sort(() => Math.random() - 0.5);
+    const items = getSortItems(data.birdsData[0]);
     setGroup(items);
     setQuestion(items[getRandomIndex(items.length)]);
     setAnswer(null);
@@ -82,7 +88,7 @@ const App = () => {
       {(() => {
         if(showResult) {
           return (
-            <Result score={score} total={5 * questions.length} onClick={clear} />
+            <Result score={score} total={count * questions.length} onClick={clear} />
           );
         } else {
           return (
