@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm dist/index.js",
-    "build:dev": "webpack -d --mode development",
-    "build:prod": "webpack -p --mode production",
+    "build:dev": "npx webpack -d --mode development --config webpack.config.js",
+    "build:prod": "npx webpack -p --mode production --config webpack.config.js",
     "start": "webpack-dev-server --hot --mode development"
   },
   "author": "Olga Ivanova",

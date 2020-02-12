@@ -6,10 +6,13 @@
   background-color: $mint-light;
 
   &__logo {
-    background-image: url('/images/logo.png');
-    flex: auto;
-    background-size: contain;
-    background-repeat: no-repeat;
+    width: $header-height;
     height: $header-height;
+    overflow: hidden;
+    flex: auto;
+
+    img {
+      height: $header-height;
+    }
   }
 }

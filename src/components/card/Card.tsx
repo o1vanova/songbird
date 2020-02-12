@@ -17,7 +17,7 @@ const Card: FunctionComponent<CardProps> = (props: CardProps) => {
 
   const name = showName ? bird.name : '*****';
 
-  const imagePath = showName ? bird.image : '/images/logo.png';
+  const imagePath = showName ? bird.image : './images/logo.png';
 
   const specie = showFullInfo ? (
     <div className="card__name--small">{bird.species}</div>

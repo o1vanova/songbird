@@ -6,9 +6,11 @@ const nodeModulesPath = path.resolve(__dirname, 'node_modules');
 
 const config = {
   entry: './src/main.tsx',
+  context: path.resolve(__dirname),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js'
+    filename: '[name].js',
+    publicPath: './',
   },
   module: {
     rules: [
