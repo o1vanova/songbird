@@ -12,9 +12,12 @@
     height: $size-image;
     overflow: hidden;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    border-radius: 5px;
+
+    img {
+      width: $size-image;
+    }
   }
 
   &__content {
@@ -39,7 +42,7 @@
     }
   }
 
-  @media (max-width: 500px) {
+  @media (max-width: 700px) {
     @include flex-container-vertical();
 
     &__content {
@@ -50,6 +53,10 @@
     &__image {
       width: 100%;
       height: 100%;
+
+      img {
+        width: 100%;
+      }
     }
   }
 }

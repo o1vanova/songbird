@@ -15,6 +15,7 @@ import Sounds from 'data/Sounds';
 
 const getRandomIndex = (len) => Math.floor(Math.random() * len);
 const getSortItems = (items) => items.sort(() => Math.random() - 0.5);
+const printRightQuestion = (name) => console.log(`Answer is ${name}`);
 const count = 5;
 
 const App = () => {
@@ -24,7 +25,8 @@ const App = () => {
   let [category, setCategory] = useState(0);
   const defaultQuestions = data.birdsData[0];
   const [questions, setGroup] = useState(defaultQuestions);
-  const [question, setQuestion] = useState<Bird>(defaultQuestions[getRandomIndex(defaultQuestions.length)]);
+  const defaultQuestion = defaultQuestions[getRandomIndex(defaultQuestions.length)];
+  const [question, setQuestion] = useState<Bird>(defaultQuestion);
   const [answer, setAnswer] = useState<Bird | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
 
@@ -35,10 +37,12 @@ const App = () => {
     if (data.birdsData.length > category + 1) {
       setCategory(++category);
       const items = getSortItems(data.birdsData[category]);
+      const item = items[getRandomIndex(items.length)];
       setGroup(items);
-      setQuestion(items[getRandomIndex(items.length)]);
+      setQuestion(item);
       setAnswer(null);
       setAnswers([]);
+      printRightQuestion(item.name);
     } else {
       setResult(true);
     }
@@ -71,14 +75,16 @@ const App = () => {
   );
 
   const clear = () => {
-    setCategory(0);
     const items = getSortItems(data.birdsData[0]);
+    const item = items[getRandomIndex(items.length)];
+    setCategory(0);
     setGroup(items);
-    setQuestion(items[getRandomIndex(items.length)]);
+    setQuestion(item);
     setAnswer(null);
     setAnswers([]);
     setScore(0);
     setResult(false);
+    printRightQuestion(item.name);
   }
 
   return (
